@@ -1,4 +1,7 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). The application is a sample blog site with contact form. Firebase is used for the database, Vercel for hosting application, SASS for stylesheets. Created a possibility to add / remove / update the blog posts with additional use of authentication in Firebase to make sure only users with correct rights can edit the page content.
+
+You can check the site on this link:
+https://nextjs-firebase-blog-contact-form.vercel.app/
 
 ## Getting Started
 
