@@ -1,7 +1,11 @@
+import { createPost } from '@lib/firebase'
 import styles from '@styles/create.module.scss'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 const CreatePage = (): JSX.Element => {
+  const router = useRouter()
+
   const [formValues, setFormValues] = useState({
     title: '',
     slug: '',
@@ -9,6 +13,7 @@ const CreatePage = (): JSX.Element => {
     coverImageAlt: '',
     content: '',
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const id = e.target.id
@@ -18,10 +23,33 @@ const CreatePage = (): JSX.Element => {
   }
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
-    // This prevents the default functionality of submitting a form
     e.preventDefault()
 
-    console.log(formValues)
+    const missingValues: string[] = []
+    Object.entries(formValues).forEach(([key, value]) => {
+      if (!value) {
+        missingValues.push(key)
+      }
+    })
+    
+    if (missingValues.length > 1) {
+      alert(`You're missing these fields: ${missingValues.join(', ')}`)
+      return
+    }
+
+    setIsLoading(true)
+
+    createPost(formValues)
+      .then(() => {
+        // Update the isLoading state and navigate to the home page.
+        setIsLoading(false)
+        router.push('/')
+      })
+      .catch((err) => {
+        // Alert the error and update the isLoading state.
+        alert(err)
+        setIsLoading(false)
+      })
   }
   
   return (
@@ -72,7 +100,11 @@ const CreatePage = (): JSX.Element => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Create</button>
+        <button
+          disabled={isLoading}
+          type="submit">
+          {isLoading ? 'Creating...' : 'Create'}
+        </button>
       </form>
     </div>
   )

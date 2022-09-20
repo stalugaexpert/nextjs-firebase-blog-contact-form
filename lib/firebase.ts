@@ -3,6 +3,15 @@ import 'firebase/compat/database'
 import { API_KEY, DATABASE_URL, PROJECT_ID } from 'config/config'
 import firebase from 'firebase/compat/app'
 
+interface BlogPost {
+  title: string,
+  slug: string,
+  coverImage: string,
+  coverImageAlt: string,
+  content: string,
+  dateCreated?: number,
+}
+
 const initFirebase = async (): Promise<void> => {
   if (!firebase.apps.length) {
     firebase.initializeApp({
@@ -34,4 +43,13 @@ export const getPosts = async (): Promise<unknown> => {
     })
 
   return posts
+}
+
+export const createPost = async (post: BlogPost): Promise<void> => {
+  initFirebase()
+
+  const dateCreated = new Date().getTime()
+  post.dateCreated = dateCreated
+
+  return firebase.database().ref(`/posts/${post.slug}`).set(post)
 }
