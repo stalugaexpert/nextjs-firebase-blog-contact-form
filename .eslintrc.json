@@ -1,0 +1,32 @@
+{
+  "plugins": ["@typescript-eslint", "simple-import-sort"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "no-console": 1,
+    "indent": ["error", 2],
+    "react/jsx-max-props-per-line": [2, { "maximum": 1 }],
+    "react/jsx-indent-props": [1, 2],
+    "react/jsx-first-prop-new-line": [2, "multiline"],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "react/jsx-sort-props": [
+      2,
+      {
+        "callbacksLast": true,
+        "shorthandFirst": false,
+        "shorthandLast": true,
+        "ignoreCase": true,
+        "noSortAlphabetically": false
+      }
+    ],
+    "semi": ["error", "never"]
+  }
+}
