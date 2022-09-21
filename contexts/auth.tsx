@@ -27,4 +27,5 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   )
 }
 
-export const useAuth = (): UserContext => useContext(AuthContext)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useAuth = (): any => useContext(AuthContext)
