@@ -3,7 +3,7 @@ import { useAuth } from '@contexts/auth'
 import { createPost } from '@lib/firebase'
 import styles from '@styles/create.module.scss'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const CreatePage = (): JSX.Element | null => {
   const router = useRouter()
@@ -35,7 +35,7 @@ const CreatePage = (): JSX.Element | null => {
         missingValues.push(key)
       }
     })
-    
+
     if (missingValues.length > 1) {
       alert(`You're missing these fields: ${missingValues.join(', ')}`)
       return
@@ -59,12 +59,12 @@ const CreatePage = (): JSX.Element | null => {
   if (userLoading) {
     return null
   }
-  
+
   if (!user && typeof window !== 'undefined') {
     router.push('/404')
     return null
   }
-  
+
   return (
     <Layout>
       <div className={styles.CreatePage}>
@@ -116,7 +116,8 @@ const CreatePage = (): JSX.Element | null => {
           </div>
           <button
             disabled={isLoading}
-            type="submit">
+            type="submit"
+          >
             {isLoading ? 'Creating...' : 'Create'}
           </button>
         </form>

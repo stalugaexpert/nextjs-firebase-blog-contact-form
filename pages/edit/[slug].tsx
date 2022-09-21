@@ -59,7 +59,11 @@ const EditPage = ({ post }: BlogPost): JSX.Element | null => {
     <Layout>
       <div className={styles.EditPage}>
         <form onSubmit={handleSubmit}>
-          <h1>Edit Post: {post.slug}</h1>
+          <h1>
+            Edit Post:
+            {' '}
+            {post.slug}
+          </h1>
           <div>
             <label htmlFor="title">Title</label>
             <input
@@ -97,7 +101,8 @@ const EditPage = ({ post }: BlogPost): JSX.Element | null => {
           </div>
           <button
             disabled={isLoading}
-            type="submit">
+            type="submit"
+          >
             {isLoading ? 'Updating...' : 'Update'}
           </button>
         </form>

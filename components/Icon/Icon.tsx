@@ -6,8 +6,8 @@ import styles from './Icon.module.scss'
 
 interface IconProps {
   name: IconProp
-  small: string
-  large: string
+  small?: string
+  large?: string
 }
 
 const Icon = ({ name, small, large }: IconProps): JSX.Element => {
@@ -17,9 +17,12 @@ const Icon = ({ name, small, large }: IconProps): JSX.Element => {
     'Icon--large': large,
   })
 
-  return <FontAwesomeIcon
-    className={className}
-    icon={name} />
+  return (
+    <FontAwesomeIcon
+      className={className}
+      icon={name}
+    />
+  )
 }
 
 export default Icon

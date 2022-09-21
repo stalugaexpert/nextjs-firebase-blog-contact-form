@@ -5,7 +5,7 @@ import React, { PropsWithChildren } from "react"
 
 import styles from './Layout.module.scss'
 
-const Layout = ({children}: PropsWithChildren): JSX.Element => {
+const Layout = ({ children }: PropsWithChildren): JSX.Element => {
   const [user] = useAuth()
 
   return (
