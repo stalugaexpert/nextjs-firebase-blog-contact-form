@@ -1,5 +1,6 @@
 import { getPosts } from '@lib/firebase'
 import styles from '@styles/index.module.scss'
+import Link from 'next/link';
 
 interface FormatOptions {
   weekday: "long" | "short";
@@ -36,7 +37,9 @@ const HomePage = ({ posts }: BlogPosts): JSX.Element => (
             dangerouslySetInnerHTML={{
               __html: `${post.content.substring(0, 200)}...`,
             }}
-          ></p>
+          >
+          </p>
+          <Link href={`/post/${post.slug}`}>Continue Reading</Link>
         </div>
       </article>
     ))}
