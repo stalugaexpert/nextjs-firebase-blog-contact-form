@@ -53,3 +53,13 @@ export const createPost = async (post: BlogPost): Promise<void> => {
 
   return firebase.database().ref(`/posts/${post.slug}`).set(post)
 }
+
+export const getPostBySlug = async (slug: string): Promise<void> => {
+  initFirebase()
+
+  return await firebase
+    .database()
+    .ref(`/posts/${slug}`)
+    .once('value')
+    .then((snapshot) => snapshot.val())
+}

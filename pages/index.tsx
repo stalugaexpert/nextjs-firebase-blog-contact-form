@@ -1,26 +1,8 @@
 import { getPosts } from '@lib/firebase'
+import { getFormattedDate } from '@lib/utils'
 import styles from '@styles/index.module.scss'
-import Link from 'next/link';
-
-interface FormatOptions {
-  weekday: "long" | "short";
-  month: "long" | "short" | "numeric" | "2-digit" | "narrow" | undefined
-  day: "numeric" | "2-digit" | undefined
-  year: "numeric" | "2-digit"
-  timeZone: string
-}
-
-const getFormattedDate = (milliseconds: number): string => {
-  const formatOptions: FormatOptions = {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }
-  const date = new Date(milliseconds)
-  return date.toLocaleDateString(undefined, formatOptions)
-}
+import Link from 'next/link'
+import { BlogPosts } from 'types/types'
 
 const HomePage = ({ posts }: BlogPosts): JSX.Element => (
   <div className={styles.HomePage}>
@@ -45,19 +27,6 @@ const HomePage = ({ posts }: BlogPosts): JSX.Element => (
     ))}
   </div>
 )
-
-interface BlogPost {
-  content: string
-  coverImage: string
-  coverImageAlt: string
-  dateCreated: number
-  slug: string
-  title: string
-}
-
-interface BlogPosts {
-  posts: BlogPost[]
-}
 
 export async function getServerSideProps(): Promise<unknown> {
   const posts = await getPosts()
