@@ -14,7 +14,11 @@
     }
 
     div {
-      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      justify-content: center;
+      padding: 18px;
 
       h2 {
         margin-top: 0;
@@ -28,11 +32,26 @@
 
       p {
         margin: 0;
-        margin-bottom: 16px;
+        margin-bottom: 18px;
       }
 
       a {
-        color: #1a73e8
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        background-color: #217c44;
+        text-decoration: none;
+        border-radius: 12px;
+        padding: 12px;
+        max-width: 30%;
+        transition: all 0.3s;
+      }
+
+      &:hover {
+        a {
+          transform: translateY(2px);
+          opacity: 0.75;
+        }
       }
     }
   }
