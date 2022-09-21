@@ -1,7 +1,9 @@
 import 'firebase/compat/database'
+import 'firebase/compat/auth'
 
 import { API_KEY, DATABASE_URL, PROJECT_ID } from 'config/config'
 import firebase from 'firebase/compat/app'
+import { EffectCallback } from 'react'
 
 interface BlogPost {
   title: string,
@@ -62,4 +64,11 @@ export const getPostBySlug = async (slug: string): Promise<void> => {
     .ref(`/posts/${slug}`)
     .once('value')
     .then((snapshot) => snapshot.val())
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const onAuthStateChanged = async (callback: any): Promise<any> => {
+  initFirebase()
+
+  return firebase.auth().onAuthStateChanged((user) => callback(user))
 }

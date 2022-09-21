@@ -1,6 +1,6 @@
+import { Layout } from '@components'
 import { createPost } from '@lib/firebase'
 import styles from '@styles/create.module.scss'
-import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
