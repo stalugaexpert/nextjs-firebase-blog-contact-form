@@ -1,6 +1,6 @@
 import { Icon, Layout } from '@components'
 import { useAuth } from '@contexts/auth'
-import { getPostBySlug } from '@lib/firebase'
+import { deletePost, getPostBySlug } from '@lib/firebase'
 import { getFormattedDate } from '@lib/utils'
 import styles from '@styles/post.module.scss'
 import Link from 'next/link'
@@ -30,13 +30,29 @@ const PostPage = ({ post }: BlogPost): JSX.Element | undefined | null => {
         <div>
           <h1>{post.title}</h1>
           {user && (
-            <Link href={`/edit/${post.slug}`}>
-              <a>
-                <Icon
-                  name="pencil-alt"
-                />
-              </a>
-            </Link>
+            <div>
+              <Link href={`/edit/${post.slug}`}>
+                <a>
+                  <Icon
+                    name="pencil-alt"
+                  />
+                </a>
+              </Link>
+              <button
+                onClick={(): void => {
+                  const shouldDeletePost = confirm(
+                    'Are you sure you want to delete this post?',
+                  )
+                  if (shouldDeletePost) {
+                    deletePost(post.slug).then(() => {
+                      router.push('/')
+                    })
+                  }
+                }}
+              >
+                <Icon name="trash-alt" />
+              </button>
+            </div>
           )}
         </div>
         <span>

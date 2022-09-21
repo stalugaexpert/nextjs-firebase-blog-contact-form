@@ -61,6 +61,12 @@ export const updatePost = async (post: BlogPost): Promise<void> => {
   return firebase.database().ref(`/posts/${post.slug}`).set(post)
 }
 
+export const deletePost = async (slug: string): Promise<void> => {
+  initFirebase()
+
+  return firebase.database().ref(`/posts/${slug}`).set(null)
+}
+
 export const getPostBySlug = async (slug: string): Promise<void> => {
   initFirebase()
 

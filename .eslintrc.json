@@ -14,6 +14,7 @@
     "eol-last": ["error", "always"],
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
+    "comma-spacing": ["error", { "before": false, "after": true }],
     "react/jsx-indent": ["error", 2],
     "react/jsx-max-props-per-line": [2, { "maximum": 1 }],
     "react/jsx-indent-props": [1, 2],
