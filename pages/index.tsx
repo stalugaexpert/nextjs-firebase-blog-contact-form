@@ -13,7 +13,8 @@ const HomePage = ({ posts }: BlogPosts): JSX.Element => (
         <article key={post.slug}>
           <img
             alt={post.coverImageAlt}
-            src={post.coverImage} />
+            src={post.coverImage}
+          />
           <div>
             <h2>{post.title}</h2>
             <span>{getFormattedDate(post.dateCreated)}</span>

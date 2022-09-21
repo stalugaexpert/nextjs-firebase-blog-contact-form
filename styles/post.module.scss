@@ -15,4 +15,24 @@
     padding: 8px;
     color: black;
   }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+  
+    a {
+      display: inline-block;
+      padding: 8px;
+      color: black;
+    }
+  
+    button {
+      background: transparent;
+      box-shadow: none;
+      border: none;
+      color: black;
+    }
+  }
 }

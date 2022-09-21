@@ -1,36 +1,38 @@
 import { Layout } from '@components'
 import { useAuth } from '@contexts/auth'
-import { createPost } from '@lib/firebase'
-import styles from '@styles/create.module.scss'
+import { getPostBySlug, updatePost } from '@lib/firebase'
+import styles from '@styles/edit.module.scss'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { BlogPost } from 'types/types'
 
-const CreatePage = (): JSX.Element | null => {
+const EditPage = ({ post }: BlogPost): JSX.Element | null => {
   const router = useRouter()
-
   const [user, userLoading] = useAuth()
-
-  const [formValues, setFormValues] = useState({
-    title: '',
-    slug: '',
-    coverImage: '',
-    coverImageAlt: '',
-    content: '',
-  })
+  const [values, setValues] = useState(post)
   const [isLoading, setIsLoading] = useState(false)
+
+  if (userLoading) {
+    return null
+  }
+
+  if (!user && typeof window !== 'undefined') {
+    router.push('/signin')
+    return null
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const id = e.target.id
     const newValue = e.target.value
 
-    setFormValues({ ...formValues, [id]: newValue })
+    setValues({ ...values, [id]: newValue })
   }
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const missingValues: string[] = []
-    Object.entries(formValues).forEach(([key, value]) => {
+    Object.entries(values).forEach(([key, value]) => {
       if (!value) {
         missingValues.push(key)
       }
@@ -42,49 +44,32 @@ const CreatePage = (): JSX.Element | null => {
     }
 
     setIsLoading(true)
-
-    createPost(formValues)
+    updatePost(values)
       .then(() => {
-        // Update the isLoading state and navigate to the home page.
         setIsLoading(false)
-        router.push('/')
+        router.push(`/post/${post.slug}`)
       })
       .catch((err) => {
-        // Alert the error and update the isLoading state.
         alert(err)
         setIsLoading(false)
       })
   }
 
-  if (userLoading) {
-    return null
-  }
-
-  if (!user && typeof window !== 'undefined') {
-    router.push('/404')
-    return null
-  }
-
   return (
     <Layout>
-      <div className={styles.CreatePage}>
+      <div className={styles.EditPage}>
         <form onSubmit={handleSubmit}>
-          <h1>Create a new post</h1>
+          <h1>
+            Edit Post:
+            {' '}
+            {post.slug}
+          </h1>
           <div>
             <label htmlFor="title">Title</label>
             <input
               id="title"
               type="text"
-              value={formValues.title}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="slug">Slug</label>
-            <input
-              id="slug"
-              type="text"
-              value={formValues.slug}
+              value={values.title}
               onChange={handleChange}
             />
           </div>
@@ -93,7 +78,7 @@ const CreatePage = (): JSX.Element | null => {
             <input
               id="coverImage"
               type="text"
-              value={formValues.coverImage}
+              value={values.coverImage}
               onChange={handleChange}
             />
           </div>
@@ -102,7 +87,7 @@ const CreatePage = (): JSX.Element | null => {
             <input
               id="coverImageAlt"
               type="text"
-              value={formValues.coverImageAlt}
+              value={values.coverImageAlt}
               onChange={handleChange}
             />
           </div>
@@ -110,7 +95,7 @@ const CreatePage = (): JSX.Element | null => {
             <label htmlFor="content">Content</label>
             <textarea
               id="content"
-              value={formValues.content}
+              value={values.content}
               onChange={handleChange}
             />
           </div>
@@ -118,7 +103,7 @@ const CreatePage = (): JSX.Element | null => {
             disabled={isLoading}
             type="submit"
           >
-            {isLoading ? 'Creating...' : 'Create'}
+            {isLoading ? 'Updating...' : 'Update'}
           </button>
         </form>
       </div>
@@ -126,4 +111,14 @@ const CreatePage = (): JSX.Element | null => {
   )
 }
 
-export default CreatePage
+export async function getServerSideProps(context: { query: { slug: string } }): Promise<unknown> {
+  const post = await getPostBySlug(context.query.slug)
+
+  return {
+    props: {
+      post,
+    },
+  }
+}
+
+export default EditPage

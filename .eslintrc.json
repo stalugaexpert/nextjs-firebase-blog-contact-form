@@ -12,13 +12,30 @@
     "@typescript-eslint/explicit-function-return-type": "error",
     "no-console": 1,
     "eol-last": ["error", "always"],
-    "indent": ["error", 2],
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "react/jsx-indent": ["error", 2],
     "react/jsx-max-props-per-line": [2, { "maximum": 1 }],
     "react/jsx-indent-props": [1, 2],
     "react/jsx-first-prop-new-line": [2, "multiline"],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "import/newline-after-import": "error",
+    "object-curly-spacing": ["error", "always", { "objectsInObjects": false }],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 0, "maxEOF": 0 }],
+    "react/jsx-closing-bracket-location": [2, "tag-aligned"],
+    "no-trailing-spaces": "error",
+    "react/jsx-wrap-multilines": ["error", {
+      "declaration": "parens-new-line",
+       "assignment": "parens-new-line",
+       "return": "parens-new-line",
+       "arrow": "parens-new-line",
+       "condition": "parens-new-line",
+       "logical": "parens-new-line",
+       "prop": "parens-new-line"
+     }
+   ],
     "react/jsx-sort-props": [
       2,
       {
@@ -29,6 +46,7 @@
         "noSortAlphabetically": false
       }
     ],
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "react/jsx-one-expression-per-line": [2, { "allow": "single-child" }]
   }
 }
