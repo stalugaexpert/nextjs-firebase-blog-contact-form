@@ -1,18 +1,21 @@
 import { getPostBySlug } from '@lib/firebase'
 import { getFormattedDate } from '@lib/utils'
 import styles from '@styles/post.module.scss'
+import { Layout } from 'components'
 import { BlogPost } from 'types/types'
 
 const PostPage = ({ post }: BlogPost): JSX.Element => {
   return (
-    <div className={styles.PostPage}>
-      <img
-        alt={post.coverImageAlt}
-        src={post.coverImage} />
-      <h1>{post.title}</h1>
-      <span>Published {getFormattedDate(post.dateCreated)}</span>
-      <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
-    </div>
+    <Layout>
+      <div className={styles.PostPage}>
+        <img
+          alt={post.coverImageAlt}
+          src={post.coverImage} />
+        <h1>{post.title}</h1>
+        <span>Published {getFormattedDate(post.dateCreated)}</span>
+        <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+      </div>
+    </Layout>
   )
 }
 
