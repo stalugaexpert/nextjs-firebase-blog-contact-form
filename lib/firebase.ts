@@ -72,3 +72,9 @@ export const onAuthStateChanged = async (callback: any): Promise<any> => {
 
   return firebase.auth().onAuthStateChanged((user) => callback(user))
 }
+
+export const signIn = async (email: string, password: string): Promise<firebase.auth.UserCredential> => {
+  initFirebase()
+
+  return firebase.auth().signInWithEmailAndPassword(email, password)
+}
