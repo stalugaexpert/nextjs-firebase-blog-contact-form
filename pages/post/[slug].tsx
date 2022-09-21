@@ -1,7 +1,7 @@
+import { Layout } from '@components'
 import { getPostBySlug } from '@lib/firebase'
 import { getFormattedDate } from '@lib/utils'
 import styles from '@styles/post.module.scss'
-import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import { BlogPost } from 'types/types'
 

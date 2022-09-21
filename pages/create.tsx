@@ -1,11 +1,14 @@
+import { Layout } from '@components'
+import { useAuth } from '@contexts/auth'
 import { createPost } from '@lib/firebase'
 import styles from '@styles/create.module.scss'
-import { Layout } from 'components'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const CreatePage = (): JSX.Element => {
+const CreatePage = (): JSX.Element | null => {
   const router = useRouter()
+
+  const [user, userLoading] = useAuth()
 
   const [formValues, setFormValues] = useState({
     title: '',
@@ -51,6 +54,15 @@ const CreatePage = (): JSX.Element => {
         alert(err)
         setIsLoading(false)
       })
+  }
+
+  if (userLoading) {
+    return null
+  }
+  
+  if (!user && typeof window !== 'undefined') {
+    router.push('/404')
+    return null
   }
   
   return (

@@ -1,7 +1,7 @@
+import { Layout } from '@components'
 import { getPosts } from '@lib/firebase'
 import { getFormattedDate } from '@lib/utils'
 import styles from '@styles/index.module.scss'
-import { Layout } from 'components'
 import Link from 'next/link'
 import { BlogPosts } from 'types/types'
 
