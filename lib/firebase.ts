@@ -3,7 +3,6 @@ import 'firebase/compat/auth'
 
 import { API_KEY, DATABASE_URL, PROJECT_ID } from 'config/config'
 import firebase from 'firebase/compat/app'
-import { EffectCallback } from 'react'
 
 interface BlogPost {
   title: string,
@@ -52,6 +51,12 @@ export const createPost = async (post: BlogPost): Promise<void> => {
 
   const dateCreated = new Date().getTime()
   post.dateCreated = dateCreated
+
+  return firebase.database().ref(`/posts/${post.slug}`).set(post)
+}
+
+export const updatePost = async (post: BlogPost): Promise<void> => {
+  initFirebase()
 
   return firebase.database().ref(`/posts/${post.slug}`).set(post)
 }
