@@ -78,3 +78,9 @@ export const signIn = async (email: string, password: string): Promise<firebase.
 
   return firebase.auth().signInWithEmailAndPassword(email, password)
 }
+
+export const signOut = async (): Promise<void> => {
+  initFirebase()
+
+  return firebase.auth().signOut()
+}
