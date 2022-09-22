@@ -18,7 +18,7 @@ const ContactPage = (): JSX.Element | null => {
     setFormValues({ ...formValues, [id]: newValue })
   }
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
     const missingValues: string[] = []
@@ -46,6 +46,16 @@ const ContactPage = (): JSX.Element | null => {
         alert(err)
         setIsLoading(false)
       })
+
+    await fetch('/api/mail', {
+      method: 'POST',
+      body: JSON.stringify(formValues)
+    }).then((res) => {
+      console.log('Response received')
+      if (res.status === 200) {
+        console.log('Response succeeded!')
+      }
+    })
   }
 
   return (
