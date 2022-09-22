@@ -77,6 +77,25 @@ export const getPostBySlug = async (slug: string): Promise<void> => {
     .then((snapshot) => snapshot.val())
 }
 
+interface ContactForm {
+  id?: string
+  name: string
+  email: string
+  message: string
+  dateCreated?: number
+}
+
+export const createContactForm = async (contactForm: ContactForm): Promise<void> => {
+  initFirebase()
+
+  const dateCreated = new Date().getTime()
+  const formId = Date.now() + Math.random()
+  contactForm.dateCreated = dateCreated
+  contactForm.id = formId.toString().replaceAll('.', '')
+
+  return firebase.database().ref(`/contactForms/${contactForm.id}`).set(contactForm)
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const onAuthStateChanged = async (callback: any): Promise<any> => {
   initFirebase()
